@@ -1,3 +1,4 @@
+from textwrap import fill
 import tkinter as tk
 from io import BytesIO
 import numpy as np
@@ -14,12 +15,25 @@ class gui(object):
         # image loading
         self.root = tk.Tk()
         self.root.geometry("800x800")
-        self.btn_pic = tk.PhotoImage(file="preload.png")
-        self.img_label = tk.Label(image=self.btn_pic)
+
+        self.canvas = tk.Canvas(self.root)
+
+        # scrollbar
+        self.sb = tk.Scrollbar(self.root,orient=tk.VERTICAL,command=self.canvas.yview)
+        self.sb.grid(row=0, column=1, sticky=tk.N+tk.S,rowspan=1)
+        self.canvas['yscrollcommand'] = self.sb.set
+
+        self.btn_pic = tk.PhotoImage(file="./example_data/8.png")
         self.button = tk.Button(
             self.root, image=self.btn_pic, command=self.select_image, borderwidth=0
         )
-        self.button.pack(pady=30)
+        self.button.grid(row=0,column=0,padx=10,pady=10)
+
+        self.btn_pic1 = tk.PhotoImage(file="./example_data/8_1.png")
+        self.button1 = tk.Button(
+            self.root, image=self.btn_pic1, command=self.select_image, borderwidth=0
+        )
+        self.button1.grid(row=1,column=0,padx=10,pady=10)
 
         self.root.mainloop()
 
