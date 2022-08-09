@@ -3,6 +3,7 @@ import numpy as np
 import mrcfile.utils as utils
 import mrcfile
 import os
+from scrollable import *
 
 
 def mrc_to_png(path, contrast):
@@ -29,4 +30,5 @@ def iterate_over_dir(input_dir,contrast):
 if __name__ == "__main__":
     path = "./example_data/"
     # iterate over files of given directory and preload each file
-    iterate_over_dir(path, 4)
+    iterate_over_dir(path, 3)
+    App().mainloop()

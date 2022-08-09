@@ -1,6 +1,9 @@
 import tkinter as tk
+import sys
+import os
 
 #https://stackoverflow.com/questions/3085696/adding-a-scrollbar-to-a-group-of-widgets-in-tkinter/3092341#3092341
+#https://stackoverflow.com/questions/67319035/scroll-through-multiple-images-in-tkinter
 
 class ScrollbarFrame(tk.Frame):
     """
@@ -18,6 +21,9 @@ class ScrollbarFrame(tk.Frame):
         # The Canvas which supports the Scrollbar Interface, layout to the left
         self.canvas = tk.Canvas(self, borderwidth=0, background="#ffffff")
         self.canvas.pack(side="left", fill="both", expand=True)
+        self.canvas.bind_all("<MouseWheel>", self.on_mousewheel, add=True)
+        self.canvas.bind_all("<Button-4>", self.on_mousewheel, add=True)
+        self.canvas.bind_all("<Button-5>", self.on_mousewheel, add=True)
 
         # Bind the Scrollbar to the self.canvas Scrollbar Interface
         self.canvas.configure(yscrollcommand=vsb.set)
@@ -35,6 +41,20 @@ class ScrollbarFrame(tk.Frame):
         """Set the scroll region to encompass the scrolled frame"""
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
+    def on_mousewheel(self,event):
+        y_steps = 2
+        if sys.platform == "windows":
+            y_steps = int(-event.delta/abs(event.delta))
+            self.canvas.yview_scroll(y_steps, "units")    
+        elif sys.platform == "linux":
+            if event.num == 4:
+                y_steps *= -1
+            self.canvas.yview_scroll(y_steps, "units")
+        elif sys.platform == "darwin": 
+            y_steps = int(event.delta)
+            self.canvas.yview_scroll(y_steps, "units")
+
+
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -47,24 +67,21 @@ class App(tk.Tk):
 
         # Some data, layout into the sbf.scrolled_frame
         frame = sbf.scrolled_frame
-        self.btn_pic = tk.PhotoImage(file="./example_data/8.png")
-        self.button = tk.Button(
-            frame, image=self.btn_pic, command=lambda: select_image("./example_data/8.png"), borderwidth=0
-        )
-        self.button.grid(row=0,column=0,padx=10,pady=10)
+        iamge_container = []
+        integer = []
+        for row in range(7):
+                    iamge_container.append(tk.PhotoImage(file="./example_data/preload/8_" + str(row) + ".png"))
+                    tk.Button(frame, image=iamge_container[row],
+                         borderwidth="1", relief="solid",command=lambda: select_image(iamge_container)) \
+                        .grid(row=row, column=0, padx=10,pady=10)
+        print(iamge_container)
 
-        self.btn_pic1 = tk.PhotoImage(file="./example_data/8_1.png")
-        self.button1 = tk.Button(
-            frame, image=self.btn_pic1, command=lambda: select_image("./example_data/8_1.png"), borderwidth=0
-        )
-        self.button1.grid(row=1,column=0,padx=10,pady=10)
-
-    def map_image_to_frame(filelist):
-        pass
     
-def select_image(filename):
-    print("Changed",filename)
-
+def select_image(list,index):
+    print(index)
+    print(list[index])
+    
 
 if __name__ == "__main__":
+    filelist = "./example_data/preload"
     App().mainloop()
