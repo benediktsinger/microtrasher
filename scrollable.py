@@ -1,4 +1,5 @@
 import tkinter as tk
+
 import sys
 import os
 
@@ -56,32 +57,40 @@ class ScrollbarFrame(tk.Frame):
 
 
 class App(tk.Tk):
-    def __init__(self):
+    def __init__(self,filepath,img_per_row,width):
         super().__init__()
 
+        self.geometry(str(width*img_per_row+30*img_per_row)+"x"+str(250*4))
+        self.title("MICRO TRASH 🖼➡🗑")
         sbf = ScrollbarFrame(self)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         sbf.grid(row=0, column=0, sticky='nsew')
-        # sbf.pack(side="top", fill="both", expand=True)
-
-        # Some data, layout into the sbf.scrolled_frame
         frame = sbf.scrolled_frame
-        iamge_container = []
-        integer = []
-        for row in range(7):
-                    iamge_container.append(tk.PhotoImage(file="./example_data/preload/8_" + str(row) + ".png"))
-                    tk.Button(frame, image=iamge_container[row],
-                         borderwidth="1", relief="solid",command=lambda: select_image(iamge_container)) \
-                        .grid(row=row, column=0, padx=10,pady=10)
-        print(iamge_container)
+
+        filepath = os.path.join(filepath,"preload")
+        filelist = os.listdir(filepath)
+        #print(filelist)
+        if not os.path.isdir(filepath.replace("preload","discarded")):    
+            os.mkdir(filepath.replace("preload","discarded"))
+
+        lst = [(i,j) for i in range(round(len(filelist) / img_per_row)) for j in range(img_per_row)]
+        for i in range(len(filelist)):
+            img = tk.PhotoImage(file=os.path.join(filepath,filelist[i]))
+            tk.Button(frame, image=img, borderwidth="1", relief="solid",command=lambda j=(img,i): self.select_image(j[0],os.path.join(filepath,filelist[j[1]]))). \
+                grid(row=lst[i][0], column=lst[i][1], padx=10,pady=10)
 
     
-def select_image(list,index):
-    print(index)
-    print(list[index])
+    def select_image(self,img,filename):
+        mrc_file = filename.replace("png","mrc")
+        print("Discarding" + mrc_file)
+        print(os.getcwd())
+        os.rename(os.path.join(os.path.split(filename)[0].replace('preload','')+os.path.basename(mrc_file)),mrc_file.replace("preload","discarded"))
+
+    
     
 
 if __name__ == "__main__":
-    filelist = "./example_data/preload"
-    App().mainloop()
+    filelist = "./example_data/preload/"
+    img_per_row = 4
+    App(filelist,img_per_row).mainloop()
