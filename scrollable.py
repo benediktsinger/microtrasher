@@ -1,6 +1,7 @@
 import tkinter as tk
-
 import sys
+from attr import field
+import numpy as np
 import os
 
 #https://stackoverflow.com/questions/3085696/adding-a-scrollbar-to-a-group-of-widgets-in-tkinter/3092341#3092341
@@ -58,11 +59,13 @@ class ScrollbarFrame(tk.Frame):
 
 
 class App(tk.Tk):
-    def __init__(self,filepath,img_per_row,width):
-        super().__init__()
+    def __init__(self,classname,filepath,img_per_row,width):
+        super().__init__(className=classname)
 
         self.geometry(str(width*img_per_row+30*img_per_row)+"x"+str(250*4))
         self.title("MICRO TRASH 🖼➡🗑")
+        self.iconphoto(False,tk.PhotoImage(file='trash.png'))
+
         sbf = ScrollbarFrame(self)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -71,11 +74,9 @@ class App(tk.Tk):
 
         filepath = os.path.join(filepath,"preload")
         filelist = os.listdir(filepath)
-        #print(filelist)
         if not os.path.isdir(filepath.replace("preload","discarded")):    
             os.mkdir(filepath.replace("preload","discarded"))
-
-        lst = [(i,j) for i in range(round(len(filelist) / img_per_row)) for j in range(img_per_row)]
+        lst = [(i,j) for i in range(int(np.ceil(len(filelist) / img_per_row))) for j in range(img_per_row)]
         for i in range(len(filelist)):
             img = tk.PhotoImage(file=os.path.join(filepath,filelist[i]))
             tk.Button(frame, image=img, borderwidth="1", relief="solid",command=lambda j=(img,i): self.select_image(j[0],os.path.join(filepath,filelist[j[1]]))). \
@@ -84,8 +85,12 @@ class App(tk.Tk):
     
     def select_image(self,img,filename):
         """Move the clicked on mrc file to the discarded folder"""
+        if os.path.isfile(filename):
+            os.remove(filename)
+        else:
+            print(filename.replace("png","mrc"),'already discarded!')
+            return
         mrc_file = filename.replace("png","mrc")
-        print("Discarding" + mrc_file)
-        print(os.getcwd())
+        print("Discarding " + mrc_file)
         os.rename(os.path.join(os.path.split(filename)[0].replace('preload','')+os.path.basename(mrc_file)),mrc_file.replace("preload","discarded"))
 
