@@ -43,6 +43,7 @@ class ScrollbarFrame(tk.Frame):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     def on_mousewheel(self,event):
+        """Determine the operating system and give appropriate reaction to scrolling"""
         y_steps = 2
         if sys.platform == "windows":
             y_steps = int(-event.delta/abs(event.delta))
@@ -82,15 +83,9 @@ class App(tk.Tk):
 
     
     def select_image(self,img,filename):
+        """Move the clicked on mrc file to the discarded folder"""
         mrc_file = filename.replace("png","mrc")
         print("Discarding" + mrc_file)
         print(os.getcwd())
         os.rename(os.path.join(os.path.split(filename)[0].replace('preload','')+os.path.basename(mrc_file)),mrc_file.replace("preload","discarded"))
 
-    
-    
-
-if __name__ == "__main__":
-    filelist = "./example_data/preload/"
-    img_per_row = 4
-    App(filelist,img_per_row).mainloop()
