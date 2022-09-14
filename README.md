@@ -68,4 +68,4 @@ options:
                         Width of each image to be displayed
 ```
  
-To find the best contrast and brightness, several invokations might be necessary
+NOTE: To find the best contrast and brightness, several invokations might be necessary

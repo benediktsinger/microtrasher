@@ -21,6 +21,7 @@ def main():
     # iterate over files of given directory and preload each file
     iterate_over_dir(args.directory, args.contrast,args.brightness,args.image_width)
     App("MICRO TRASH",args.directory,args.images_per_row,args.image_width).mainloop()
+    cleanup(args.directory)
 
 
 def mrc_to_png(path, contrast,offset,width):
@@ -47,6 +48,10 @@ def iterate_over_dir(input_dir,contrast,offset,width):
     for file in os.listdir(input_dir):
         if file.endswith("mrc"):
             mrc_to_png(os.path.join(input_dir,file), contrast, offset,width)
+
+def cleanup(input_dir):
+    """Delets the created folder with the preloaded png files"""
+    os.rmdir(os.path.join(input_dir,"preload"))
 
 if __name__ == "__main__":
     main()
