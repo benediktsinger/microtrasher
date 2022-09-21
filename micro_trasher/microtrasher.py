@@ -52,6 +52,3 @@ def iterate_over_dir(input_dir,contrast,offset,width):
 def cleanup(input_dir):
     """Delets the created folder with the preloaded png files"""
     os.rmdir(os.path.join(input_dir,"preload"))
-
-if __name__ == "microtrasher":
-    main()
