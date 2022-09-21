@@ -63,7 +63,6 @@ class App(tk.Tk):
 
         self.geometry(str(width*img_per_row+30*img_per_row)+"x"+str(250*4))
         self.title("MICRO TRASH 🖼➡🗑")
-        self.iconphoto(False,tk.PhotoImage(file='trash.png'))
 
         sbf = ScrollbarFrame(self)
         self.grid_rowconfigure(0, weight=1)
