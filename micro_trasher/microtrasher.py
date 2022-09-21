@@ -1,7 +1,7 @@
 #!/usr/bin/python3
+from micro_trasher import scrollable
 
 from PIL import Image
-from scrollable import App
 import numpy as np
 import mrcfile.utils as utils
 import mrcfile
@@ -20,7 +20,7 @@ def main():
     args = parser.parse_args()
     # iterate over files of given directory and preload each file
     iterate_over_dir(args.directory, args.contrast,args.brightness,args.image_width)
-    App("MICRO TRASH",args.directory,args.images_per_row,args.image_width).mainloop()
+    scrollable.App("MICRO TRASH",args.directory,args.images_per_row,args.image_width).mainloop()
     cleanup(args.directory)
 
 
