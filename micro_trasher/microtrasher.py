@@ -53,5 +53,5 @@ def cleanup(input_dir):
     """Delets the created folder with the preloaded png files"""
     os.rmdir(os.path.join(input_dir,"preload"))
 
-if __name__ == "__main__":
+if __name__ == "microtrasher":
     main()
