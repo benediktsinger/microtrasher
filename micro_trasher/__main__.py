@@ -1,3 +1,3 @@
-from micro_trasher import __main__
+from micro_trasher import microtrasher
 
-__main__()
+microtrasher()
