@@ -20,14 +20,6 @@ The resulting discarded files can be found in the ```discarded/``` folder:
 
 ### Dependencies
 
-```
-pip3 install numpy mrcfile
-```
-
-For the Python Image library:
-```
-python3 -m pip install --upgrade Pillow --global-option="build_ext" --global-option="--disable-jpeg
-```
 
 For Linux-based operating systems, the tkinter (GUI) library needs to be installed extra (e.g. for Debian based systems):
 
@@ -35,16 +27,20 @@ For Linux-based operating systems, the tkinter (GUI) library needs to be install
 sudo apt install python3-tk -y
 ```
 
-Clone the git repository or install from pypi:
+If you are using it in an environment where you do not have root privileges (e.g. a HPC environment) contact your administrator to install it for you.
+
+For using it on the ISTA cluster, some python versions have tkinter installed and some do not. Versions which worked, as of now (21.09.22): 3.10.1, 3.10.4, 3.10.6, 3.9.9, 3.9.13
+
+Clone the git repository or install via pip:
 
 ```
-pip3 install microtrasher #TODO - so far this is fake news
+pip3 install git+https://git.ist.ac.at/bsinger/microprev.git
 ```
 
 Invoke the program with:
 
 ```
-python3 -m preload.py --directory </directory/with/MRC files>
+python3 -m micro_trasher --directory </directory/with/MRC files>
 ```
 
 The other possible parameters are:
