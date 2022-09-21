@@ -50,7 +50,7 @@ python3 -m preload.py --directory </directory/with/MRC files>
 The other possible parameters are:
 
 ``` 
-preload.py [-h] [--images_per_row IMAGES_PER_ROW] [--directory DIRECTORY] [--contrast CONTRAST] [--brightness BRIGHTNESS]
+microtrasher.py [-h] [--images_per_row IMAGES_PER_ROW] [--directory DIRECTORY] [--contrast CONTRAST] [--brightness BRIGHTNESS]
                   [--image_width IMAGE_WIDTH]
 
 Micrograph Selection Pipeline

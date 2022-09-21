@@ -1,6 +1,5 @@
 import tkinter as tk
 import sys
-from attr import field
 import numpy as np
 import os
 

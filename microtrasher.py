@@ -9,7 +9,7 @@ import argparse
 import os
 
 parser = argparse.ArgumentParser(description="Micrograph Selection Pipeline")
-parser.add_argument("--images_per_row", default=4, type=int, help="Number of images displayed per row",)
+parser.add_argument("--images_per_row", default=4, type=int, help="Number of images displayed per row")
 parser.add_argument("--directory", default="./example_data", type=str, help="Directory of the MRC files")
 parser.add_argument("--contrast", default=2, type=int, help="Contrast for the MRC files")
 parser.add_argument("--brightness", default=0, type=int, help="Value to add for the brightness")
