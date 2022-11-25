@@ -34,7 +34,7 @@ For using it on the ISTA cluster, some python versions have tkinter installed an
 Clone the git repository or install via pip:
 
 ```
-pip3 install git+https://git.ist.ac.at/bsinger/microprev.git
+pip3 install git+https://github.com/benediktsinger/microtrasher.git
 ```
 
 Invoke the program with:
