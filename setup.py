@@ -11,9 +11,9 @@ setuptools.setup(
     description='Testing installation of Package',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://git.ist.ac.at/bsinger/microprev',
+    url='https://github.com/benediktsinger/microtrasher/',
     project_urls = {
-        "Bug Tracker": "https://git.ist.ac.at/bsinger/microprev/-/issues"
+        "Bug Tracker": "https://github.com/benediktsinger/microtrasher/issues"
     },
     license='MIT',
     packages=['micro_trasher'],
